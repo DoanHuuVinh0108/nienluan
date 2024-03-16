@@ -8,7 +8,7 @@ CREATE TABLE Products(
     Productid INT AUTO_INCREMENT,
     Tensanpham varchar(50),
     Giasanpham INT,
-    Sodonhang INT,
+    Soluong INT,
     MotaHH varchar(50),
     Categoryid INT,
     PRIMARY KEY (productid),

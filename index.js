@@ -1,7 +1,9 @@
 import express from 'express';
-
+import connectDB from './src/config/connectionDB.js';
 const app = express();
 const port = process.env.PORT || 8080;
+
+connectDB();
 
 app.use((req, res, next) => {
     //check => return res.send()
