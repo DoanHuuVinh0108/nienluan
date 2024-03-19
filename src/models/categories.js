@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Categories.hasMany(Products);
+            // Categories.hasMany(Products);
         }
     }
     Categories.init({

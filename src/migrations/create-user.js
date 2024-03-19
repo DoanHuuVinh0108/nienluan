@@ -9,6 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      Hoten: {
+        type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      Email: {
+        type: Sequelize.STRING(50),
+        allowNull: true // Change to false if email is required
+      },
       Matkhau: {
         type: Sequelize.STRING(50),
         allowNull: false

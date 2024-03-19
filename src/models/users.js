@@ -17,6 +17,14 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true
     },
+    Hoten: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+    },
+    Email: {
+      type: DataTypes.STRING(50),
+      allowNull: true // Change to false if email is required
+    },
     Matkhau: {
       type: DataTypes.STRING(50),
       allowNull: true // Change to false if description is required
