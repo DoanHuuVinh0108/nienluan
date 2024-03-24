@@ -26,7 +26,7 @@ export default (sequelize, DataTypes) => {
       allowNull: true // Change to false if email is required
     },
     Matkhau: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(255),
       allowNull: true // Change to false if description is required
     },
     Diachi: {

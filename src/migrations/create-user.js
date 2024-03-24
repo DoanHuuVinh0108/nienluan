@@ -15,10 +15,11 @@ module.exports = {
       },
       Email: {
         type: Sequelize.STRING(50),
-        allowNull: true // Change to false if email is required
+        allowNull: true, // Change to false if email is required
+        primaryKey: true,
       },
       Matkhau: {
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: false
       },
       Diachi: {
@@ -28,7 +29,6 @@ module.exports = {
       Sodienthoai: {
         type: Sequelize.STRING(50),
         allowNull: false,
-        primaryKey: true
       },
       Groupid: {
         type: Sequelize.INTEGER,

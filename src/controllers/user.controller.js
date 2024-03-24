@@ -3,9 +3,9 @@ import userService from '../services/users.service.js';
 let postCreateUser = async (req, res) => {
     try {
         let data = req.body;
-        console.log('>>> data', data);
+        // console.log('>>> data', data);
         await userService.createUser(data);
-        return res.status(200).json({ message: 'Create user success' });
+        return res.status(200).json({ message: 'Create user success' , status: 200});
     } catch (e) {
         return res.status(500).json({ message: e.message });
     }

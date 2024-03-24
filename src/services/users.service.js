@@ -3,10 +3,14 @@ import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
 
-let createUser = async (data) => {
+let createUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
             let hashPasswordFromBcrypt = await hashPassword(data.Matkhau);
+            let checkMail = await checkUserEmail(data.Email);
+            if (checkMail === true) {
+                throw new Error('Email da ton tai');
+            }
             await db.User.create({
                 Hoten: data.Hoten,
                 Email: data.Email,
@@ -17,6 +21,7 @@ let createUser = async (data) => {
             });
             resolve('Create user success');
         } catch (e) {
+            console.log('>>> e', e);
             reject(e);
         }
     });
@@ -26,6 +31,7 @@ let hashPassword = (password) => {
     return new Promise((resolve, reject) => {
         try {
             let hashPassword = bcrypt.hashSync(password, salt);
+            // console.log('>>> hashPassword', hashPassword);
             resolve(hashPassword);
         } catch (e) {
             reject(e);
@@ -33,16 +39,16 @@ let hashPassword = (password) => {
     });
 }
 
-let findOneUserByEmail = (email) => {
+let checkUserEmail = (email) => {
     return new Promise(async (resolve, reject) => {
         try {
             let user = await db.User.findOne({
                 where: { Email: email }
             });
             if (user) {
-                resolve(user);
+                resolve(true); // Email da ton tai
             } else {
-                resolve({});
+                resolve(false); // Email chua ton tai
             }
         } catch (e) {
             reject(e);
@@ -50,16 +56,6 @@ let findOneUserByEmail = (email) => {
     });
 }
 
-let comparePassword = (password, hashPassword) => {
-    return new Promise((resolve, reject) => {
-        try {
-            let check = bcrypt.compareSync(password, hashPassword);
-            resolve(check);
-        } catch (e) {
-            reject(e);
-        }
-    });
-}
 
 let getAllUsers = () => {
     return new Promise(async (resolve, reject) => {
@@ -121,4 +117,6 @@ export default  {
     getAllUsers,
     deleteUserById,
     updateUser,
+    checkUserEmail,
+    hashPassword,
 };
