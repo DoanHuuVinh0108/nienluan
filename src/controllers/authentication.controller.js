@@ -1,5 +1,6 @@
 import authenService from '../services/authentication.service';
 import jwt from 'jsonwebtoken';
+import validate from '../services/validate.service';
 require('dotenv').config();
 
 let postLogin = async (req, res) => {
@@ -46,7 +47,61 @@ let postLogin = async (req, res) => {
     }
 };
 
+let postRegister = async (req, res) => {
+    try{
+        let data = req.body;
+        console.log('>>> data', data);
+        if (!data.Email || !data.Matkhau || !data.Hoten || !data.Sodienthoai || !data.Diachi) {
+            return res.status(500).json({
+                errCode: 1,
+                message: 'Missing required fields'
+            });
+        }
+
+        let checkEmail = validate.validateEmail(data.Email);
+        if (!checkEmail) {
+            return res.status(500).json({
+                errCode: 1,
+                message: 'Email is invalid'
+            });
+        }
+
+        let checkPassword = validate.validatePassword(data.Matkhau);
+        if (!checkPassword) {
+            return res.status(500).json({
+                errCode: 1,
+                message: 'Password is invalid'
+            });
+        }
+
+        let checkPhone = validate.validatePhone(data.Sodienthoai);
+        if (!checkPhone) {
+            return res.status(500).json({
+                errCode: 1,
+                message: 'Phone is invalid'
+            });
+        }
+
+        let user = await authenService.handleRegister(data);
+        console.log('>>> user', user);
+        if (user) {
+            return res.status(200).json({
+                errCode: 0,
+                message: 'Register success'
+            });
+        }
+        
+    }
+    catch(error){
+        return res.status(500).json({
+            message: 'Unauthentiacted user',
+            error: error
+        })
+    }
+};
+
 
 export default {
-    postLogin
+    postLogin,
+    postRegister
 };

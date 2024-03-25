@@ -43,20 +43,24 @@ let handleUserLogin = (email, password) => {
     });
 };
 
-let handleRegister = (data) =>{
+let handleRegister = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            if (!data.email || !data.password || !data.name || !data.phone || !data.address) {
-                reject('Missing required fields');
-            } else {
-               
+            let user = await userService.createUser(data, 1);
+            if(user){
+                resolve(true)
+            }else{
+                reject(false)
             }
+           
         } catch (e) {
             reject(e);
         }
     });
 }
 
+
 export default {
     handleUserLogin,
+    handleRegister,
 }

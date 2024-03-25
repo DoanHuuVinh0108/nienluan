@@ -5,6 +5,7 @@ let router = express.Router();
 
 let initUserRoutes = (app) => {
     router.post('/login', authenController.postLogin);
+    router.post('/register', authenController.postRegister);
     return app.use("/api/v1", router);
 }
 
