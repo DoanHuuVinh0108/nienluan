@@ -15,31 +15,24 @@ let handleUserLogin = (email, password) => {
             });
 
             if (User) {
-                console.log('>>> User', User);
-                // let checkPassWord =  bcrypt.compareSync(password, User.Matkhau);
-                // let hashPassword= await userService.hashPassword(password);
+                // console.log('>>> User', User);
+
                 let checkPassWord = await bcrypt.compare(password, User.Matkhau);
-                console.log('>>> checkPassWord', checkPassWord);
+                // console.log('>>> checkPassWord', checkPassWord);
 
                 if (checkPassWord) {
-                    // resolve({
-                    //     errCode: 0,
-                    //     errMessage: 'OK',
-                    //     user: findUser
-                    // })
-                    resolve(User)
+                    resolve({
+                        Hoten: User.Hoten,
+                        Email: User.Email,
+                        Sodienthoai: User.Sodienthoai,
+                        Diachi: User.Diachi,
+                    })
                 } else {
-                    // reject({
-                    //     errCode: 3,
-                    //     errMessage: 'Email and/or password is incorrect'
-                    // })
+
                     reject(false)
                 }
             } else {
-                // reject({
-                //     errCode: 3,
-                //     errMessage: 'Email and/or password is incorrect'
-                // })
+
                 console.log('>>> Email not found');
                 reject(false)
             }
@@ -49,6 +42,20 @@ let handleUserLogin = (email, password) => {
         }
     });
 };
+
+let handleRegister = (data) =>{
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!data.email || !data.password || !data.name || !data.phone || !data.address) {
+                reject('Missing required fields');
+            } else {
+               
+            }
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
 
 export default {
     handleUserLogin,

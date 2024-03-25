@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
 
-let createUser = (data) => {
+let createUser = (data,Group) => {
     return new Promise(async (resolve, reject) => {
         try {
             let hashPasswordFromBcrypt = await hashPassword(data.Matkhau);
@@ -17,7 +17,7 @@ let createUser = (data) => {
                 Matkhau: hashPasswordFromBcrypt,
                 Diachi: data.Diachi,
                 Sodienthoai: data.Sodienthoai,
-                Groupid: data.Groupid
+                Groupid: Group ? Group : data.Groupid
             });
             resolve('Create user success');
         } catch (e) {
