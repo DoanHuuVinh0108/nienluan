@@ -33,10 +33,10 @@ module.exports = {
       Groupid: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        // references: {
-        //   model: 'Groups',
-        //   key: 'Groupid'
-        // } 
+        references: {
+          model: 'Groups',
+          key: 'Groupid'
+        } 
       },
       createdAt: {
         allowNull: false,

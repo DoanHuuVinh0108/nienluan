@@ -11,7 +11,7 @@ let createUser = (data,Group) => {
             if (checkMail === true) {
                 throw new Error('Email da ton tai');
             }
-            await db.User.create({
+            await db.Users.create({
                 Hoten: data.Hoten,
                 Email: data.Email,
                 Matkhau: hashPasswordFromBcrypt,
@@ -42,7 +42,7 @@ let hashPassword = (password) => {
 let checkUserEmail = (email) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
+            let user = await db.Users.findOne({
                 where: { Email: email }
             });
             if (user) {
@@ -60,7 +60,7 @@ let checkUserEmail = (email) => {
 let getAllUsers = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = db.User.findAll(
+            let users = db.Users.findAll(
                 {
                     attributes: {
                         exclude: ['Matkhau', 'createdAt', 'updatedAt','Groupid']
@@ -78,7 +78,7 @@ let getAllUsers = () => {
 let deleteUserById = (Userid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.destroy({
+            let user = await db.Users.destroy({
                 where: { Userid: Userid}
             });
             // console.log('>>> user', user);
@@ -92,7 +92,7 @@ let deleteUserById = (Userid) => {
 let updateUser = (data,Userid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.update(
+            let user = await db.Users.update(
                 {
                     Hoten: data.Hoten,
                     Email: data.Email,
@@ -112,6 +112,30 @@ let updateUser = (data,Userid) => {
     });
 }
 
+let getUserById = (Userid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let user = await db.Users.findOne({
+                where: { Userid: Userid },
+                raw: true,
+                attributes: {
+                    exclude: ['Matkhau', 'createdAt', 'updatedAt','Groupid']
+                },
+                include: [
+                    {
+                        model: db.Groups,
+                        as: 'Group',
+                        attributes: ['Tennhom']
+                    }
+                ],
+            });
+            resolve(user);
+        } catch (e) {
+            reject(e);
+        }
+    });
+}
+
 export default  {
     createUser,
     getAllUsers,
@@ -119,4 +143,5 @@ export default  {
     updateUser,
     checkUserEmail,
     hashPassword,
+    getUserById,
 };

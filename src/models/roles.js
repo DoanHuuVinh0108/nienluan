@@ -10,7 +10,7 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            // Roles.belongsToMany(models.Roles, { through: 'GroupRoles', foreignKey: 'RoleId' });
+            Roles.belongsToMany(models.Groups, { through: models.GroupRoles, foreignKey: 'RoleId' });
 
         }
     }

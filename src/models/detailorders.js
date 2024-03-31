@@ -10,8 +10,8 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            // Detailorders.belongsTo(Products);
-            // Detailorders.belongsTo(Orders);
+            Detailorders.belongsTo(models.Products,{foreignKey:'Productid'});
+            Detailorders.belongsTo(models.Orders,{foreignKey:'Orderid'});
 
         }
     }

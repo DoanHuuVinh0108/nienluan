@@ -8,6 +8,7 @@ let initUserRoutes = (app) => {
     router.get('/user/get-all', userController.getAllUsers);
     router.delete('/user/delete/:id', userController.deleteUser);
     router.put('/user/update/:id', userController.putUpdateUser);
+    router.get('/user/get/:id', userController.getUserById);
     return app.use("/api/v1", router);
 }
 

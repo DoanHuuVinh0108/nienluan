@@ -7,19 +7,19 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        // references: {
-        //   model: 'Groups',
-        //   key: 'Groupid'
-        // }
+        references: {
+          model: 'Groups',
+          key: 'Groupid'
+        }
       },
       Roleid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true,
-        // references: {
-        //   model: 'Roles',
-        //   key: 'Roleid'
-        // } 
+        references: {
+          model: 'Roles',
+          key: 'Roleid'
+        } 
       },
       createdAt: {
         allowNull: false,

@@ -9,8 +9,8 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            // Groups.belongsToMany(models.Roles, { through: 'GroupRoles', foreignKey: 'GroupId' })
-
+            Groups.belongsToMany(models.Roles, { through: models.GroupRoles, foreignKey: 'GroupId' })
+            Groups.hasMany(models.Users, { foreignKey: 'GroupId' });
         }
     }
     Groups.init({

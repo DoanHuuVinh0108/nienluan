@@ -10,8 +10,8 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            // Orders.belongsToMany(models.Orders, { through: 'GroupOrders', foreignKey: 'RoleId' });
-
+            Orders.belongsTo(models.Users, {foreignKey:'Userid'})
+            Orders.hasMany(models.Detailorders, {foreignKey:'Orderid'})
         }
     }
     Orders.init({

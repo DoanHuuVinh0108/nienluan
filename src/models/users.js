@@ -1,7 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 export default (sequelize, DataTypes) => {
-  class User extends Model {
+  class Users extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,9 +9,11 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Users.belongsTo(models.Groups, { foreignKey: 'GroupId' });
+      Users.hasMany(models.Orders, { foreignKey: 'Userid' });
     }
   }
-  User.init({
+  Users.init({
     Userid: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -48,7 +50,7 @@ export default (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Users',
   });
-  return User;
+  return Users;
 };

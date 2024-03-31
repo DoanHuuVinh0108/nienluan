@@ -8,13 +8,13 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
-        // references: { model: 'Orders', key: 'id' }
+        references: { model: 'Orders', key: 'Orderid' }
       },
       Productid: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false,
-        // references: { model: 'Products', key: 'Productid' }
+        references: { model: 'Products', key: 'Productid' }
       },
       Soluong: {
         type: Sequelize.INTEGER,

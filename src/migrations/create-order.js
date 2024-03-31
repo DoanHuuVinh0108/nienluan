@@ -12,7 +12,7 @@ module.exports = {
       Userid: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        // references: { model: 'Users', key: 'Userid' }
+        references: { model: 'Users', key: 'Userid' }
       },
       Sodonhang: {
         type: Sequelize.INTEGER,

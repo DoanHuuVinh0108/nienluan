@@ -13,7 +13,9 @@ let postCreateUser = async (req, res) => {
 
 let getAllUsers = async (req, res) => {
     try {
+        console.log('>>> run into getAllUsers');
         let users = await userService.getAllUsers();
+        console.log('>>> users', users);
         return res.status(200).json(users);
     } catch (e) {
         return res.status(500).json({ message: e.message });
@@ -49,9 +51,24 @@ let putUpdateUser = async (req, res) => {
     }
 };
 
+let getUserById = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let user = await userService.getUserById(id);
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json(user);
+    } catch (e) {
+        return res.status(500).json({ message: e.message });
+    }
+
+}
+
 export default {
     postCreateUser,
     getAllUsers,
     deleteUser,
     putUpdateUser,
+    getUserById,
 };
