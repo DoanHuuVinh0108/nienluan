@@ -19,7 +19,7 @@ let createUser = (data,Group) => {
                 Sodienthoai: data.Sodienthoai,
                 Groupid: Group ? Group : data.Groupid
             });
-            resolve('Create user success');
+            resolve(data);
         } catch (e) {
             console.log('>>> e', e);
             reject(e);
@@ -104,6 +104,7 @@ let updateUser = (data,Userid) => {
                     where: { Userid: Userid }
                 }
             );
+            console.log('>>> user', user); 
             [user] =user; 
             resolve(user);
         } catch (e) {

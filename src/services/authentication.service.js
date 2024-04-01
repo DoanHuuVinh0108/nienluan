@@ -1,12 +1,14 @@
 import db from '../models/index';
 import bcrypt from 'bcryptjs';
-import userService from './users.service';
+import usersService from './users.service';
+
+
 
 let handleUserLogin = (email, password) => {
     return new Promise(async (resolve, reject) => {
         try {
 
-            let User = await db.User.findOne({
+            let User = await db.Users.findOne({
                 where: { Email: email },
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'Groupid']
@@ -28,13 +30,11 @@ let handleUserLogin = (email, password) => {
                         Diachi: User.Diachi,
                     })
                 } else {
-
-                    reject(false)
+                    reject('Wrong Email or Password')
                 }
             } else {
+                reject('Wrong Email or Password')
 
-                console.log('>>> Email not found');
-                reject(false)
             }
 
         } catch (e) {
@@ -45,17 +45,27 @@ let handleUserLogin = (email, password) => {
 
 let handleRegister = (data) => {
     return new Promise(async (resolve, reject) => {
+
         try {
-            let user = await userService.createUser(data, 1);
-            if(user){
-                resolve(true)
-            }else{
-                reject(false)
+            let hashPasswordFromBcrypt = await usersService.hashPassword(data.Matkhau);
+            let checkMail = await usersService.checkUserEmail(data.Email);
+            if (checkMail === true) {
+                throw new Error('Email da ton tai');
             }
-           
+            await db.Users.create({
+                Hoten: data.Hoten,
+                Email: data.Email,
+                Matkhau: hashPasswordFromBcrypt,
+                Diachi: data.Diachi,
+                Sodienthoai: data.Sodienthoai,
+                Groupid: 1,
+            });
+            resolve(data);
         } catch (e) {
+            console.log('>>> e', e);
             reject(e);
         }
+
     });
 }
 

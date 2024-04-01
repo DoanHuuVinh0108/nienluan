@@ -39,9 +39,11 @@ let postLogin = async (req, res) => {
         }
 
 
-    } catch (error) {
+    } catch (e) {
         return res.status(500).json({
-            message: 'Unauthentiacted user'
+            message: 'Unauthentiacted user',
+            error: e,
+            errcode:1,
         })
 
     }
@@ -83,11 +85,11 @@ let postRegister = async (req, res) => {
         }
 
         let user = await authenService.handleRegister(data);
-        console.log('>>> user', user);
         if (user) {
             return res.status(200).json({
                 errCode: 0,
-                message: 'Register success'
+                message: 'Register success',
+                data: user
             });
         }
         
@@ -95,7 +97,8 @@ let postRegister = async (req, res) => {
     catch(error){
         return res.status(500).json({
             message: 'Unauthentiacted user',
-            error: error
+            error: error.message ?? error,
+            errcode:1,
         })
     }
 };
