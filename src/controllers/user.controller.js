@@ -55,7 +55,7 @@ let deleteUser = async (req, res) => {
             
             });
         }
-        return res.status(204).json({
+        return res.status(200).json({
             message: 'Delete user success',
             errcode:0,
         });

@@ -3,13 +3,21 @@ import connectDB from './src/config/connectionDB.js';
 import initUserRoutes from './src/routes/user.route.js';
 import initAuthRoutes from './src/routes/authencation.route.js';
 import initGroupRoutes from './src/routes/group.route.js';
+import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 8080;
 
 connectDB();
 
+app.use(cors(
+    {
+        origin: 'http://localhost:5173'
+    }
+));
 
 app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 // app.use((req, res, next) => {
 //     //check => return res.send()

@@ -6,7 +6,7 @@ let validateEmail = (email) => {
 
 let validatePassword = (password) => {
     return String(password).
-        match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/);
+        match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
 }
 
 

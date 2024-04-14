@@ -4,6 +4,7 @@ import validate from '../services/validate.service';
 require('dotenv').config();
 
 let postLogin = async (req, res) => {
+    console.log('>>> req.body', req.body);
     try {
         let data = req.body;
         if (!data.email || !data.password) {
@@ -32,17 +33,16 @@ let postLogin = async (req, res) => {
             console.log('>>> token', token);
             return res.status(200).json({
                 errCode: 0,
-                message: 'OK',
-                data: userLogin.user,
-                token: token
+                message: 'Login success',
+                data: userLogin,
+                accessToken: token
             });
         }
 
 
     } catch (e) {
         return res.status(500).json({
-            message: 'Unauthentiacted user',
-            error: e,
+            message: e ?? e.message,
             errcode:1,
         })
 

@@ -4,9 +4,9 @@ import express from 'express';
 let router = express.Router();
 
 let initUserRoutes = (app) => {
-    router.post('/login', authenController.postLogin);
-    router.post('/register', authenController.postRegister);
-    return app.use("/api/v1", router);
+    router.post('/signin', authenController.postLogin);
+    router.post('/signup', authenController.postRegister);
+    return app.use("/api/v1/auth", router);
 }
 
 export default initUserRoutes;

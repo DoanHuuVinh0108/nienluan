@@ -63,9 +63,16 @@ let getAllUsers = () => {
             let users = db.Users.findAll(
                 {
                     attributes: {
-                        exclude: ['Matkhau', 'createdAt', 'updatedAt','Groupid']
+                        exclude: ['Matkhau', 'createdAt', 'updatedAt','Groupid','GroupId']
                     },
-                    raw: true
+                    raw: true,
+                    include: [
+                        {
+                            model: db.Groups,
+                            as: 'Group',
+                            attributes: ['Tennhom']
+                        }
+                    ]
                 }
             );
             resolve(users);

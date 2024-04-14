@@ -13,7 +13,10 @@ let handleUserLogin = (email, password) => {
                 attributes: {
                     exclude: ['createdAt', 'updatedAt', 'Groupid']
                 },
-                raw: true
+                raw: true,
+                include: [
+                    { model: db.Groups, attributes: ['Tennhom'] }
+                ]
             });
 
             if (User) {
@@ -24,10 +27,13 @@ let handleUserLogin = (email, password) => {
 
                 if (checkPassWord) {
                     resolve({
+                        Userid: User.Userid,
                         Hoten: User.Hoten,
                         Email: User.Email,
-                        Sodienthoai: User.Sodienthoai,
                         Diachi: User.Diachi,
+                        Sodienthoai: User.Sodienthoai,
+                        Tennhom: User['Group.Tennhom']
+                    
                     })
                 } else {
                     reject('Wrong Email or Password')
