@@ -15,6 +15,14 @@ CREATE TABLE Products(
     Constraint FK_Products_Categories FOREIGN KEY (Categoryid) REFERENCES Categories(Categoryid)
 )
 
+Create Image(
+    Imageid INT AUTO_INCREMENT,
+    Image varchar(50),
+    Productid INT,
+    PRIMARY KEY (imageid),
+    Constraint FK_Images_Products FOREIGN KEY (Productid) REFERENCES Products(Productid)
+)
+
 CREATE TABLE Groups(
     Groupid INT AUTO_INCREMENT,
     Tennhom varchar(50),

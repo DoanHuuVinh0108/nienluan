@@ -1,7 +1,7 @@
 'use strict';
 import { Model } from 'sequelize';
 export default (sequelize, DataTypes) => {
-    class Products extends Model {
+    class Images extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
@@ -9,41 +9,32 @@ export default (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
-            Products.belongsTo(models.Categories, { foreignKey: 'Categoryid' });
-            Products.hasMany(models.Detailorders, { foreignKey: 'Productid' });
-            Products.hasMany(models.Images, { foreignKey: 'Productid' });
+            Images.belongsTo(models.Products, { foreignKey: 'Productid' })
+        
         }
     }
-    Products.init({
-        Productid: {
+    Images.init({
+        Imageid: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        Tensanpham: {
+        Url: {
+            type: DataTypes.STRING(225),
+            allowNull: false
+        },
+        Productid: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        Public_id: {
             type: DataTypes.STRING(50),
-            allowNull: false
-        },
-        Giasanpham: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        Soluong: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        Mota: {
-            type: DataTypes.STRING(50),
-            allowNull: true // Change to false if description is required
-        },
-        Categoryid: {
-            type: DataTypes.INTEGER,
             allowNull: false
         }
     }, {
         sequelize,
-        modelName: 'Products',
+        modelName: 'Images',
         freezeTableName: true
     });
-    return Products;
+    return Images;
 };
