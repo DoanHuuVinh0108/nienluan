@@ -22,6 +22,42 @@ module.exports = {
         allowNull: false
       },
       Mota: {
+        type: Sequelize.STRING(65000),
+        allowNull: true
+      },
+      Manhinh: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Hedieuhanh: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Cameratruoc: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Camerasau: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Chip: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Ram: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Dungluongluutru: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Sim: {
+        type: Sequelize.STRING(50),
+        allowNull: true
+      },
+      Pinvasac: {
         type: Sequelize.STRING(50),
         allowNull: true
       },

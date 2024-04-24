@@ -10,6 +10,7 @@ let initProductRoutes = (app) => {
     router.put('/product/update/:id',productController.putProduct);
     router.delete('/product/delete/:id',productController.deleteProductById);
     router.get('/product/get-list/:offset',productController.fetchListProducts);
+    router.get('/product/search/:name?',productController.getSearchPoducts);
     return app.use("/api/v1", router);
 }
 

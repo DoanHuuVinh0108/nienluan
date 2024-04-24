@@ -147,11 +147,40 @@ let fetchListProducts = async (req, res) => {
   }
 }
 
+let getSearchPoducts =  async (req, res) => {
+  try {
+    let name = req.query.name;
+    // console.log(name);
+    let products = await productService.getSearchProducts(name);
+    if (products && products.length > 0) {
+      res.status(200).json({
+        data: products,
+        errcode: 0,
+        message: "Get all product successful",
+      });
+    } else {
+      res.status(200).json({
+        data: [],
+        errcode: 0,
+        message: "No product found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      errcode: 1,
+      message: "Internal server error",
+      error: e.message,
+    });
+  }
+
+}
+
 export default {
   getAllProducts,
   postProduct,
   putProduct,
   deleteProductById,
   getProductById,
-  fetchListProducts
+  fetchListProducts,
+  getSearchPoducts
 };

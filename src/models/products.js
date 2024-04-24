@@ -33,8 +33,44 @@ export default (sequelize, DataTypes) => {
             allowNull: false
         },
         Mota: {
-            type: DataTypes.STRING(50),
+            type: DataTypes.STRING(65000),
             allowNull: true // Change to false if description is required
+        },
+        Manhinh:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Hedieuhanh:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Cameratruoc:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Camerasau:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Chip:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Ram:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Dungluongluutru:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Sim:{
+            type: DataTypes.STRING(50),
+            allowNull: true
+        },
+        Pinvasac:{
+            type: DataTypes.STRING(50),
+            allowNull: true
         },
         Categoryid: {
             type: DataTypes.INTEGER,
