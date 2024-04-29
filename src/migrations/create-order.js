@@ -14,15 +14,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'Users', key: 'Userid' }
       },
-      Sodonhang: {
-        type: Sequelize.INTEGER,
-        allowNull: false 
-      },
       TrangThai: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      Ngaydathang: {
+      Ngaygiaohang: {
         type: Sequelize.DATE,
         allowNull: false
       },

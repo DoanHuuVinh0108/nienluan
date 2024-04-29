@@ -28,15 +28,11 @@ export default (sequelize, DataTypes) => {
             //     key: 'Userid'
             // }
         },
-        Sodonhang: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
         Trangthai: {
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        Ngaydathang: {
+        Ngaygiaohang: {
             type: DataTypes.INTEGER,
             allowNull: false
         }

@@ -6,6 +6,7 @@ import initGroupRoutes from './src/routes/group.route.js';
 import initImageRoutes from './src/routes/image.route.js';
 import initProductRoutes from './src/routes/product.route.js';
 import initCategoryRoutes from './src/routes/category.route.js';
+import initOrderRoutes from './src/routes/order.route.js';
 import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 8080;
@@ -22,6 +23,7 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
+
 // app.use((req, res, next) => {
 //     //check => return res.send()
 //     console.log('>>> run into my middleware')
@@ -35,6 +37,7 @@ initGroupRoutes(app);
 initImageRoutes(app);
 initProductRoutes(app);
 initCategoryRoutes(app);
+initOrderRoutes(app);
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

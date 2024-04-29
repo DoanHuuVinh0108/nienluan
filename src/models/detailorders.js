@@ -37,6 +37,10 @@ export default (sequelize, DataTypes) => {
         Soluong: {
             type: DataTypes.INTEGER,
             allowNull: false
+        },
+        Giasanpham:{
+            type: DataTypes.INTEGER,
+            allowNull: false
         }
     }, {
         sequelize,

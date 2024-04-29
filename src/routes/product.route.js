@@ -11,6 +11,8 @@ let initProductRoutes = (app) => {
     router.delete('/product/delete/:id',productController.deleteProductById);
     router.get('/product/get-list/:offset',productController.fetchListProducts);
     router.get('/product/search/:name?',productController.getSearchPoducts);
+    router.get('/product/get-name-image/:id',productController.getNameAndImageById);
+    router.get('/product/count',productController.getCountProducts);
     return app.use("/api/v1", router);
 }
 

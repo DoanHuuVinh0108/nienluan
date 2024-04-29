@@ -175,6 +175,51 @@ let getSearchPoducts =  async (req, res) => {
 
 }
 
+let getNameAndImageById = async (req,res) => {
+  let id = req.params.id;
+  console.log('check id',id);
+  try {
+      let result = await productService.getNameAndImageById(id);
+      return res.status(200).json({
+          message: 'Get product by id success',
+          data: result,
+          errcode: 0
+      })
+  } catch (e) {
+      return res.status(500).json({
+          message: "Get product fail",
+          error:e.message,
+          errcode:1
+      })
+  }
+
+}
+
+let getCountProducts = async (req, res) => {
+  try {
+    let count = await productService.countProducts();
+    if (count) {
+      res.status(200).json({
+        data: count,
+        errcode: 0,
+        message: "Get all product successful",
+      });
+    } else {
+      res.status(200).json({
+        data: 0,
+        errcode: 0,
+        message: "No product found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      errcode: 1,
+      message: "Internal server error",
+      error: e.message,
+    });
+  }
+};
+
 export default {
   getAllProducts,
   postProduct,
@@ -182,5 +227,7 @@ export default {
   deleteProductById,
   getProductById,
   fetchListProducts,
-  getSearchPoducts
+  getSearchPoducts,
+  getNameAndImageById,
+  getCountProducts
 };

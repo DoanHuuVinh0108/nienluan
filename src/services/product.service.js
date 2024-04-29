@@ -126,6 +126,40 @@ let getSearchProducts = async (search) => {
 
 }
 
+let getNameAndImageById = async (id) => {
+  try {
+    let product = await db.Products.findOne({
+      where: { Productid: id },
+      attributes: ['Tensanpham'],
+      include: [
+        {
+          model: db.Images,
+          as: 'Images',
+          attributes: ['Url'],
+          required: false, // Include images even if there are no associated images
+          order: sequelize.literal('RAND()'), // Lấy một ảnh ngẫu nhiên cho mỗi sản phẩm
+
+        }
+      ],
+      raw: true, // Return raw data
+      nest: true, // Nesting the associated data under a key matching the model name
+      group: ['Products.Productid', 'Products.Tensanpham', 'Products.Giasanpham']
+    });
+    return product;
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
+let countProducts = async () => {
+  try {
+    let count = await db.Products.count();
+    return count;
+  } catch (e) {
+    throw new Error(e);
+  }
+}
+
 
 
 export default {
@@ -135,5 +169,7 @@ export default {
   getAllProducts,
   getProductById,
   getListProducts,
-  getSearchProducts
+  getSearchProducts,
+  getNameAndImageById,
+  countProducts
 };
