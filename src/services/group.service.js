@@ -1,4 +1,4 @@
-import e from 'express';
+
 import db from '../models/index.js';
 
 let getAllGroups = () => {
@@ -7,7 +7,7 @@ let getAllGroups = () => {
             let data = await db.Groups.findAll(
                 { 
                    raw: true,
-                   attributes: ['Groupid', 'TenNhom', 'Description']
+                   attributes: ['Groupid', 'Tennhom', 'Description']
                 }
             );
             if (data && data.length > 0) {
@@ -19,6 +19,21 @@ let getAllGroups = () => {
             reject(e);
         }
     });
+}
+
+let getGroupById = async (id) => {
+    try {
+        let group = await db.Groups.findOne({
+            where: { Groupid: id }
+        });
+        if (group) {
+           return group;
+        } else {
+            return false
+        }
+    } catch (e) {
+        throw new Error(e);
+    }
 }
 
 let createGroup = (data) => {
@@ -81,4 +96,5 @@ export default{
     createGroup,
     updateGroup,
     deleteGroupById,
+    getGroupById
 }

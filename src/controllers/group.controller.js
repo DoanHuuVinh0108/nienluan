@@ -26,6 +26,32 @@ let getAllGroups = async (req, res) => {
     }
 };
 
+let getGroupById = async (req, res) => {
+    try {
+        let id = req.params.id;
+        let group = await groupService.getGroupById(id);
+        if (group) {
+            res.status(200).json({
+                data: group,
+                errcode: 0,
+                message: 'Get group successful',
+            });
+        } else {
+            res.status(404).json({
+                errcode: 1,
+                message: 'Group not found',
+            });
+        }
+    } catch (e) {
+        res.status(500).json({
+            errcode: 1,
+            message: 'Internal server error',
+            error: e,
+        });
+    }
+
+}
+
 let postCreateGroup = async (req, res) => {
     try {
         let data = req.body;
@@ -91,5 +117,6 @@ export default {
     getAllGroups,
     postCreateGroup,
     putUpdateGroup,
-    deleteGroupById
+    deleteGroupById,
+    getGroupById
 }
