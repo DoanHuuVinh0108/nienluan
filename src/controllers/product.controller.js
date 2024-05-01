@@ -220,6 +220,91 @@ let getCountProducts = async (req, res) => {
   }
 };
 
+let getSearchProductByCategory = async (req, res) => {
+  try {
+    let category = req.params.id;
+    let products = await productService.findProductsByCategory(category);
+    if (products && products.length > 0) {
+      res.status(200).json({
+        data: products,
+        errcode: 0,
+        message: "Get all product successful",
+      });
+    } else {
+      res.status(200).json({
+        data: [],
+        errcode: 0,
+        message: "No product found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      errcode: 1,
+      message: "Internal server error",
+      error: e.message,
+    });
+  }
+}
+
+let getSearchProductByPrice = async (req, res) => {
+  try {
+    console.log(req.body);
+    let priceMax = req.body.max * 1000000; // convert to vnd
+    let priceMin = req.body.min * 1000000; // convert to vnd
+    let products = await productService.findByPrice(priceMin, priceMax);
+    if (products && products.length > 0) {
+      res.status(200).json({
+        data: products,
+        errcode: 0,
+        message: "Get all product successful",
+      });
+    } else {
+      res.status(200).json({
+        data: [],
+        errcode: 0,
+        message: "No product found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      errcode: 1,
+      message: "Internal server error",
+      error: e.message,
+    });
+  }
+
+}
+
+let getSearchProductsByCategoryAndPrice = async (req, res) => {
+  try {
+    console.log(req.body);
+    let category = req.body.categoryid;
+    let priceMax = req.body.max * 1000000; // convert to vnd
+    let priceMin = req.body.min * 1000000; // convert to vnd
+    let products = await productService.findSearchProductsByCategoryAndPrice(category, priceMin, priceMax);
+    if (products && products.length > 0) {
+      res.status(200).json({
+        data: products,
+        errcode: 0,
+        message: "Get all product successful",
+      });
+    } else {
+      res.status(200).json({
+        data: [],
+        errcode: 0,
+        message: "No product found",
+      });
+    }
+  } catch (e) {
+    res.status(500).json({
+      errcode: 1,
+      message: "Internal server error",
+      error: e.message,
+    });
+  }
+
+}
+
 export default {
   getAllProducts,
   postProduct,
@@ -229,5 +314,8 @@ export default {
   fetchListProducts,
   getSearchPoducts,
   getNameAndImageById,
-  getCountProducts
+  getCountProducts,
+  getSearchProductByCategory,
+  getSearchProductByPrice,
+  getSearchProductsByCategoryAndPrice
 };

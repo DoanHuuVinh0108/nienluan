@@ -160,6 +160,96 @@ let countProducts = async () => {
   }
 }
 
+let findByPrice = async (min,max) => {
+  try{
+    let products = await db.Products.findAll({
+      where: {
+        Giasanpham: {
+          [Op.between]: [min,max]
+        }
+      },
+      attributes: ['Productid', 'Tensanpham', 'Giasanpham'],
+      include: [
+        {
+          model: db.Images,
+          as: 'Images',
+          attributes: ['Url'],
+          required: false, // Include images even if there are no associated images
+          order: sequelize.literal('RAND()'), // Lấy một ảnh ngẫu nhiên cho mỗi sản phẩm
+
+        }
+      ],
+      raw: true, // Return raw data
+      nest: true, // Nesting the associated data under a key matching the model name
+      subQuery: false, // Group the products by Productid
+      group: ['Productid', 'Tensanpham', 'Giasanpham']
+    });
+    return products;
+  }catch(e){
+    throw new Error(e);
+  }
+}
+
+let   findProductsByCategory = async (categoryid) => {
+  try{
+    let products = await db.Products.findAll({
+      where: {
+        Categoryid: categoryid
+      },
+      attributes: ['Productid', 'Tensanpham', 'Giasanpham'],
+      include: [
+        {
+          model: db.Images,
+          as: 'Images',
+          attributes: ['Url'],
+          required: false, // Include images even if there are no associated images
+          order: sequelize.literal('RAND()'), // Lấy một ảnh ngẫu nhiên cho mỗi sản phẩm
+
+        }
+      ],
+      raw: true, // Return raw data
+      nest: true, // Nesting the associated data under a key matching the model name
+      subQuery: false, // Group the products by Productid
+      group: ['Productid', 'Tensanpham', 'Giasanpham']
+    });
+    return products;
+  }catch(e){
+    throw new Error(e);
+  }
+}
+
+let findSearchProductsByCategoryAndPrice = async (category,min,max) => {
+  try{
+    let products = await db.Products.findAll({
+      where: {
+        Categoryid: category,
+        Giasanpham: {
+          [Op.between]: [min,max]
+        }
+      },
+      attributes: ['Productid', 'Tensanpham', 'Giasanpham'],
+      include: [
+        {
+          model: db.Images,
+          as: 'Images',
+          attributes: ['Url'],
+          required: false, // Include images even if there are no associated images
+          order: sequelize.literal('RAND()'), // Lấy một ảnh ngẫu nhiên cho mỗi sản phẩm
+
+        }
+      ],
+      raw: true, // Return raw data
+      nest: true, // Nesting the associated data under a key matching the model name
+      subQuery: false, // Group the products by Productid
+      group: ['Productid', 'Tensanpham', 'Giasanpham']
+    });
+    return products;
+  }
+  catch(e){
+    throw new Error(e);
+  }
+}
+
 
 
 export default {
@@ -171,5 +261,8 @@ export default {
   getListProducts,
   getSearchProducts,
   getNameAndImageById,
-  countProducts
+  countProducts,
+  findByPrice,
+  findProductsByCategory,
+  findSearchProductsByCategoryAndPrice
 };

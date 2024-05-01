@@ -9,7 +9,7 @@ let verifyToken =async (req, res, next) => {
         const token = req.headers.authorization.split(' ')[1]; // jwt <token>
         try {
             // verify makes sure that the token hasn't expired and has been issued by us
-            result = await jwt.verify(token, process.env.JWT_SECRET);
+            result = jwt.verify(token, process.env.JWT_SECRET);
 
             // Let's pass back the decoded token to the request object
             req.decoded = result;
@@ -31,27 +31,18 @@ let verifyToken =async (req, res, next) => {
     }
 }
 
-let verifyRefreshToken = async refreshToken => {
-//   let privateKey = process.env.REFRESH_TOKEN_SECRET
-
-//   let userToken = await UserToken.findOne({ refresh_token: refreshToken })
-
-//   if (!userToken) {
-//     return { error: true, message: "Refresh token không hợp lệ." }
-//   }
-//   try {
-//     let tokenDetails = jwt.verify(refreshToken, privateKey)
-//     return {
-//       tokenDetails,
-//       error: false,
-//       message: "Refresh token hợp lệ"
-//     }
-//   } catch (error) {
-//     return { error: true, message: "Refresh token không hợp lệ" }
-//   }
+let isAdmin = async (req,res,next) => {
+    if(req.decoded.user.Tennhom==='admin'){
+        next();
+    }else{
+        return res.status(403).json({
+            message: 'You are not admin',
+            errcode: 1,
+        })
+    }
 }
 
 
 export default {
-    verifyToken,verifyRefreshToken
+    verifyToken,isAdmin
 }
